@@ -52,4 +52,41 @@ def draw_puzzle(state):
                 text_rect = text.get_rect(center = (j * TILE_SIZE + TILE_SIZE // 2, i * TILE_SIZE + TILE_SIZE // 2))
                 screen.blit(text, text_rect)
 
+def hill_climbing(state, heuristic):
+    current_state = state
+
+    while True:
+        neighbors = []
+        zero_row, zero_col = next((i, j) for i, row in enumerate(current_satte) for j, val in enumerate(row) if val == 0)
+
+        if zero_row > 0:
+            new_state = copy.deepcopy(current_state)
+            new_state[zero_row][zero_col], new_state[zero_row - 1][zero_col] = new_state[zero_row - 1][zero_col], new_state[zero_row][zero_col]
+            neighbors.append(new_state)
+
+        if zero_row < 2:
+            new_state = copy.deepcopy(current_state)
+            new_state[zero_row][zero_col], new_state[zero_row + 1][zero_col] = new_state[zero_row + 1][zero_col ], new_state[zero_row, zero_col]
+            neighbors.append(new_state)
+
+        if zero_col > 0:
+            new_state = copy.deepcopy(current_state)
+            new_state[zero_row][zero_col], new_state[zero_row][zero_col - 1] = new_state[zero_row][zero_col - 1], new_state[zero_row][zero_col]
+            neighbors.append(new_state)
+
+        if zero_col < 2:
+            new_state = copy.deepcopy(current_state)
+            new_state[zero_row][zero_col], new_state[zero_row][zero_col + 1] = new_state[zero_row][zero_col + 1], new_state[zero_row][zero_col]
+            neighbors.append(new_state)
+
+        neighbor_scores = [(neighbor, heuristic(neighbor)) for neighbor in neighbors]
+        neighbor_scores.sort(key=lambda x: x[1])
+
+        if neighbor_scores[0][1] >= heuristic(current_state):
+            return current_state
+        current_state = neighbor_scores[0][0]
+
+        
+
+
 
