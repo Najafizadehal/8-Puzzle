@@ -104,6 +104,19 @@ while True:
     initial_state_h2 = result
     path_h2.append(copy.deepcopy(result))
 
+for state in path_h1:
+    screen.fill(WHITE)
+    draw_puzzle(state)
+    pygame.display.flip()
+    time.sleep(1)
+
+for state in path_h2:
+    screen.fill(WHITE)
+    draw_puzzle(state)
+    pygame.display.flip()
+    time.sleep()
+
+
 
 
 
