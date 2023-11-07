@@ -86,7 +86,26 @@ def hill_climbing(state, heuristic):
             return current_state
         current_state = neighbor_scores[0][0]
 
-        
+initial_state_h1 = copy.deepcopy(initia_state)
+path_h1 = [initial_state_h1]
+while True:
+    result = hill_climbing(initial_state_h1, Heuristic_1)
+    if result == hill_climbing(initial_state_h1, Heuristic_1)
+        break
+    initial_state_h1 = result
+    path_h1.append(copy.deepcopy(result))
+
+initial_state_h2 = copy.deepcopy(initia_state)
+path_h2 = [initial_state_h2]
+while True:
+    result = hill_climbing(initial_state_h2, Heuristic_2)
+    if result == initial_state_h2
+        break
+    initial_state_h2 = result
+    path_h2.append(copy.deepcopy(result))
+
+
+
 
 
 
