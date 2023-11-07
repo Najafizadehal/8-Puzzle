@@ -47,4 +47,9 @@ def draw_puzzle(state):
             color = GRAY if tile != 0 else WHITE
             pygame.draw.rect(screen, color, (j * TILE_SIZE, i * TILE_SIZE, TILE_SIZE, TILE_SIZE))
             if tile != 0:
-                tile = state[i][j]
+                font = pygame.font.SysFont(None, 64)
+                text = font.render(str(tile), True, BLACK)
+                text_rect = text.get_rect(center = (j * TILE_SIZE + TILE_SIZE // 2, i * TILE_SIZE + TILE_SIZE // 2))
+                screen.blit(text, text_rect)
+
+
