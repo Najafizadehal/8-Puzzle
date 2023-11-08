@@ -2,9 +2,15 @@ import pygame
 import copy
 import time
 
-initial_state = [[2, 8, 3],
-                 [1, 6, 4],
-                 [7, 0, 5]]
+initial_state = [[0] * 3 for _ in range(3)]
+
+for i in range(3):
+    for j in range(3):
+        initial_state[i][j] = int(input(f"Enter element at position ({i+1}, {j+1}): "))
+
+# initial_state = [[2, 8, 3],
+#                  [1, 6, 4],
+#                  [7, 0, 5]]
 
 goal_state = [[1, 2, 3],
               [8, 0, 4],
