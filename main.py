@@ -25,16 +25,13 @@ if A == 1:
         for j in range(3):
             initial_state[i][j] = list(numbers)[index]
             index += 1
-# if A == 2:
-#     numbers_1 = list()
-#     while len(numbers_1) < 2:
-#         num_1 = random.sample(range(9),9)
-#         numbers_1.append(num_1)
-#     index = 0
-#     for i in range(3):
-#         for j in range(3):
-#             initial_state[i][j] = list(numbers_1)[index]
-#             index += 1
+if A == 2:
+    num_1 = random.sample(range(9),9)
+    index = 0
+    for i in range(3):
+        for j in range(3):
+            initial_state[i][j] = list(num_1)[index]
+            index += 1
 
 goal_state = [[1, 2, 3],
               [4, 5, 6],
