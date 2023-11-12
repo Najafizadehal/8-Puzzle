@@ -1,40 +1,47 @@
-import random
-
 import pygame
 import copy
 import time
-import numpy
-
+import random
+import numpy as np
 initial_state = [[0] * 3 for _ in range(3)]
 print("How select initial state :")
 
 A = int(input("1.Custom\n2.Random\n"))
 
 if A == 1:
-    for i in range(3):
-        for j in range(3):
-            initial_state[i][j] = int(input(f"Enter element at position ({i + 1}, {j + 1}): "))
-elif A == 2:
-    for i in range(3):
-        for j in range(3):
-            initial_state[i][j] = numpy.random.randint(low=0, high=8, size=None, dtype='l')
+    numbers = []
+    while len(numbers) < 9:
+        num = int(input("Enter a number between 0 and 8: "))
+        if num < 0 or num > 8:
+            print("Number should be between 0 and 8.")
+            continue
+        if num in numbers:
+            print("Number is already entered. Try again.")
+            continue
+        numbers.append(num)
 
-#
-# for i in range(3):
-#     for j in range(3):
-#         initial_state[i][j] = random.randint(0,8)
-#
-# initial_state = [[2, 8, 3],
-#                  [1, 6, 4],
-#                  [7, 0, 5]]
+    index = 0
+    for i in range(3):
+        for j in range(3):
+            initial_state[i][j] = list(numbers)[index]
+            index += 1
+# if A == 2:
+#     numbers_1 = list()
+#     while len(numbers_1) < 2:
+#         num_1 = random.sample(range(9),9)
+#         numbers_1.append(num_1)
+#     index = 0
+#     for i in range(3):
+#         for j in range(3):
+#             initial_state[i][j] = list(numbers_1)[index]
+#             index += 1
 
 goal_state = [[1, 2, 3],
-              [8, 0, 4],
-              [7, 6, 5]]
+              [4, 5, 6],
+              [7, 8, 0]]
 
 
 def heuristic_1(state):
-    # Number of misplaced tiles
     count = 0
     for i in range(3):
         for j in range(3):
