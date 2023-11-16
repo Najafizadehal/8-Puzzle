@@ -12,21 +12,21 @@ Installation
 
 Clone the repository:
 
-   git clone https://github.com/your-username/8-puzzle-solver.git
+       git clone https://github.com/your-username/8-puzzle-solver.git
 
 Install the required dependencies:
 
-   pip install pygame numpy
+       pip install pygame numpy
 
 Usage
 
 Navigate to the project directory:
 
-   cd 8-puzzle-solver
+       cd 8-puzzle-solver
 
 Run the Python script:
 
-   python 8_puzzle_solver.py
+       python 8_puzzle_solver.py
 
 Follow the on-screen instructions to select the initial state of the puzzle.
 Watch the visualization of the hill climbing algorithm with two different heuristics finding the solution to the 8-puzzle problem.
