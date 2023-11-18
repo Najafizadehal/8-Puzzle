@@ -2,7 +2,6 @@ import pygame
 import copy
 import time
 import random
-import numpy as np
 initial_state = [[0] * 3 for _ in range(3)]
 print("How select initial state :")
 
