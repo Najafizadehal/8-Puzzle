@@ -2,6 +2,7 @@ import pygame
 import copy
 import time
 import random
+
 initial_state = [[0] * 3 for _ in range(3)]
 print("How select initial state :")
 
@@ -25,7 +26,7 @@ if A == 1:
             initial_state[i][j] = list(numbers)[index]
             index += 1
 if A == 2:
-    num_1 = random.sample(range(9),9)
+    num_1 = random.sample(range(9), 9)
     index = 0
     for i in range(3):
         for j in range(3):
@@ -86,7 +87,11 @@ def draw_puzzle(state):
 
 def hill_climbing(state, heuristic):
     current_state = state
-    while True:
+    path = [current_state]
+    moves = 0
+    running = True
+
+    while running:
         neighbors = []
         zero_row, zero_col = next(
             (i, j) for i, row in enumerate(current_state) for j, val in enumerate(row) if val == 0)
@@ -116,48 +121,49 @@ def hill_climbing(state, heuristic):
         neighbor_scores.sort(key=lambda x: x[1])
 
         if neighbor_scores[0][1] >= heuristic(current_state):
-            return current_state
-        current_state = neighbor_scores[0][0]
+            running = False
+        else:
+            current_state = neighbor_scores[0][0]
+            path.append(current_state)
+            moves += 1
+
+        pygame.event.get()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        screen.fill(WHITE)
+        draw_puzzle(current_state)
+        pygame.display.flip()
+        time.sleep(1)
+
+    return current_state, moves, path
+
+
+def print_path(path):
+    for i, state in enumerate(path):
+        print(f"Move {i + 1}:")
+        for row in state:
+            print(row)
+        print()
 
 
 initial_state_h1 = copy.deepcopy(initial_state)
-path_h1 = [initial_state_h1]
-while True:
-    result = hill_climbing(initial_state_h1, heuristic_1)
-    if result == initial_state_h1:
-        break
-    initial_state_h1 = result
-    path_h1.append(copy.deepcopy(result))
+result_h1, moves_h1, path_h1 = hill_climbing(initial_state_h1, heuristic_1)
 
 initial_state_h2 = copy.deepcopy(initial_state)
-path_h2 = [initial_state_h2]
-while True:
-    result = hill_climbing(initial_state_h2, heuristic_2)
-    if result == initial_state_h2:
-        break
-    initial_state_h2 = result
-    path_h2.append(copy.deepcopy(result))
-
-for state in path_h1:
-    screen.fill(WHITE)
-    draw_puzzle(state)
-    pygame.display.flip()
-    time.sleep(1)
-
-for state in path_h2:
-    screen.fill(WHITE)
-    draw_puzzle(state)
-    pygame.display.flip()
-    time.sleep(1)
+result_h2, moves_h2, path_h2 = hill_climbing(initial_state_h2, heuristic_2)
 
 pygame.quit()
 
 print("Results for h1 heuristic:")
-print("Final state:", path_h1[-1])
-print("Number of moves:", len(path_h1) - 1)
-print("Path:", path_h1)
+print("Final state:", result_h1)
+print("Number of moves:", moves_h1)
+print("Path:")
+print_path(path_h1)
 
 print("\nResults for h2 heuristic:")
-print("Final state:", path_h2[-1])
-print("Number of moves:", len(path_h2) - 1)
-print("Path:", path_h2)
+print("Final state:", result_h2)
+print("Number of moves:", moves_h2)
+print("Path:")
+print_path(path_h2)
